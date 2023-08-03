@@ -22,15 +22,29 @@ public partial class MovieRow : ContentView
 	public static readonly BindableProperty IsLargeProperty =
 			BindableProperty.Create(nameof(IsLarge), typeof(bool), typeof(MovieRow), false);
     
-    public event EventHandler<MediaSelectEventArgs> MediaSelected;
+    public static readonly BindableProperty CommandProperty =
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MovieRow), default(ICommand));
+    
+    public static readonly BindableProperty CommandParameterProperty =
+        BindableProperty.Create(nameof(CommandParameter), typeof(Object), typeof(MovieRow), default(Object));
 
-	public MovieRow()
+    public MovieRow()
 	{
 		InitializeComponent();
-		MediaDetailsCommand = new Command(ExecuteMediaDetailsCommand);
+        MediaDetailsCommand = new Command(ExecuteMediaDetailsCommand);
+    }
+    public Object CommandParameter
+    {
+        get => (Object)GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
+    }
+    public ICommand Command
+    {
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
     }
 
-	public string Heading
+    public string Heading
     {
 		get => (string)GetValue(MovieRow.HeadingProperty);
 		set => SetValue(MovieRow.HeadingProperty, value);
@@ -49,11 +63,9 @@ public partial class MovieRow : ContentView
 	public bool IsNotLarge => !IsLarge;
 
     public ICommand MediaDetailsCommand { get; private set; }
-	private void ExecuteMediaDetailsCommand(object parameter)
-	{
-		if(parameter is Media media && media is not null)
-		{
-            MediaSelected?.Invoke(this, new MediaSelectEventArgs(media));
-        }
-	}
+    private void ExecuteMediaDetailsCommand(object parameter)
+    {
+        CommandParameter = parameter;
+        Command?.Execute(CommandParameter);
+    }
 }

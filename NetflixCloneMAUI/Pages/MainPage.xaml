@@ -112,19 +112,20 @@
                 <controls:MovieRow Heading="Top Rated" 
                                    Movies="{Binding TopRated}" 
                                    IsLarge="False"
-                                   MediaSelected="MovieRow_MediaSelected"/>
+                                   Command="{Binding SelectMediaCommand}"
+                                   CommandParameter="{Binding TrendingMovie}"/>
                 <controls:MovieRow Heading="Originals" 
                                    Movies="{Binding NetflixOriginals}" 
                                    IsLarge="True"
-                                   MediaSelected="MovieRow_MediaSelected"/>
+                                   Command="{Binding SelectMediaCommand}"/>
                 <controls:MovieRow Heading="Trending" 
                                    Movies="{Binding Trending}" 
                                    IsLarge="False"
-                                   MediaSelected="MovieRow_MediaSelected"/>
+                                   Command="{Binding SelectMediaCommand}"/>
                 <controls:MovieRow Heading="Action" 
                                    Movies="{Binding ActionMovies}" 
                                    IsLarge="False"
-                                   MediaSelected="MovieRow_MediaSelected"/>
+                                   Command="{Binding SelectMediaCommand}"/>
 
             </VerticalStackLayout>
         </ScrollView>
