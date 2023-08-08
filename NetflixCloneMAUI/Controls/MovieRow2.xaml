@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:NetflixCloneMAUI.Models"
              xmlns:controls="clr-namespace:NetflixCloneMAUI.Controls"
-             x:Class="NetflixCloneMAUI.Controls.MovieRow"
+             x:Class="NetflixCloneMAUI.Controls.MovieRow2"
              x:Name="this"
              >
     <VerticalStackLayout BackgroundColor="Black"

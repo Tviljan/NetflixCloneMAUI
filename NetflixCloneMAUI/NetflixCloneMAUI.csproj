@@ -80,10 +80,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Controls\MovieRow2.xaml.cs">
+	    <DependentUpon>MovieRow2.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Controls\MovieInfoBox.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\MovieRow.xaml">
+	  <MauiXaml Update="Controls\MovieRow2.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\CategoriesPage.xaml">

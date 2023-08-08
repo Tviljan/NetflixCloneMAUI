@@ -112,8 +112,7 @@
                 <controls:MovieRow Heading="Top Rated" 
                                    Movies="{Binding TopRated}" 
                                    IsLarge="False"
-                                   Command="{Binding SelectMediaCommand}"
-                                   CommandParameter="{Binding TrendingMovie}"/>
+                                   Command="{Binding SelectMediaCommand}"/>
                 <controls:MovieRow Heading="Originals" 
                                    Movies="{Binding NetflixOriginals}" 
                                    IsLarge="True"
