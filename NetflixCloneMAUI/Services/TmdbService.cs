@@ -8,75 +8,63 @@ using System.Threading.Tasks;
 
 namespace NetflixCloneMAUI.Services
 {
-    public partial class TmdbService
+    public class TmdbService
     {
-        //private const string ApiKey = "738b6d8d99b51339705b1037c981a488"; // generate it from tmdb website
-        public const string TmdbHttpClientName = "TmdbClient";
-
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        public TmdbService(IHttpClientFactory httpClientFactory)
+        private static List<Media> _fakeMovies = Enumerable.Range(1, 10).Select(i => new Media
         {
-            _httpClientFactory = httpClientFactory;
-        }
+            DisplayTitle = $"Fake Movie {i}",
+            Overview = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo, massa a ultricies dapibus, mi tortor egestas sem, a accumsan elit tellus eget magna. Nulla facilisi. Suspendisse potenti. Nam ut aliquet velit. Curabitur eget risus auctor, sagittis libero quis, aliquet odio. Nulla facilisi. Nulla facilisi. Morbi sed libero quis ex cursus blandit. In hac habitasse platea dictumst. Maecenas ut nisl velit. Phasellus id nisl euismod, vehicula est a, suscipit nisl. Proin sit amet velit id risus sagittis convallis. Donec in tortor quis eros aliquet aliquet. Vivamus accumsan nisl eu tellus blandit, eget ultrices sapien ultricies. Fusce eget posuere ante, nec vulputate sapien.",
+            MediaType = "movie",
+            ReleaseDate = "2021-01-01",
+            Thumbnail = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9HT9982bzgN5on1sLRmc1GMn6ZC.jpg",
+            ThumbnailSmall = "https://image.tmdb.org/t/p/w220_and_h330_face/9HT9982bzgN5on1sLRmc1GMn6ZC.jpg",
+            ThumbnailUrl = "https://image.tmdb.org/t/p/original/9HT9982bzgN5on1sLRmc1GMn6ZC.jpg",
+            Id = i
+        }).ToList();
+    
 
-        private HttpClient HttpClient => _httpClientFactory.CreateClient(TmdbHttpClientName);
+
+        public TmdbService()
+        {
+        }
+        
 
         public async Task<IEnumerable<Genre>> GetGenresAsync()
         {
-            var genresWrapper = await HttpClient.GetFromJsonAsync<GenreWrapper>($"{TmdbUrls.MovieGenres}&api_key={ApiKey}");
-            return genresWrapper.Genres;
-        }   
+            return new List<Genre>();
+        }
 
         public async Task<IEnumerable<Media>> GetTrendingAsync() =>
-            await GetMediasAsync(TmdbUrls.Trending);
+            await Task.FromResult(_fakeMovies);
 
         public async Task<IEnumerable<Media>> GetTopRatedAsync() =>
-            await GetMediasAsync(TmdbUrls.TopRated);
+            await Task.FromResult(_fakeMovies);
+
         public async Task<IEnumerable<Media>> GetNetflixOriginalAsync() =>
-            await GetMediasAsync(TmdbUrls.NetflixOriginals);
+            await Task.FromResult(_fakeMovies);
+
         public async Task<IEnumerable<Media>> GetActionAsync() =>
-            await GetMediasAsync(TmdbUrls.Action);
+            await Task.FromResult(_fakeMovies);
 
         public async Task<IEnumerable<Video>?> GetTrailersAsync(int id, string type = "movie")
         {
-            var videosWrapper = await HttpClient.GetFromJsonAsync<VideosWrapper>(
-                $"{TmdbUrls.GetTrailers(id, type)}&api_key={ApiKey}");
-
-            if(videosWrapper?.results?.Length > 0)
-            {
-                var trailerTeasers = videosWrapper.results.Where(VideosWrapper.FilterTrailerTeasers);
-                return trailerTeasers;
-            }
             return null;
         }
 
         public async Task<MovieDetail> GetMediaDetailsAsync(int id, string type = "movie") =>
-            await HttpClient.GetFromJsonAsync<MovieDetail>(
-                $"{TmdbUrls.GetMovieDetails(id, type)}&api_key={ApiKey}");
+            new MovieDetail()
+            {
+                id = id,
+                title = "Fake Movie 1",
+                overview = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo, massa a ultricies dapibus, mi tortor egestas sem, a accumsan elit tellus eget magna. Nulla facilisi. Suspendisse potenti. Nam ut aliquet velit. Curabitur eget risus auctor, sagittis libero quis, aliquet odio. Nulla facilisi. Nulla facilisi. Morbi sed libero quis ex cursus blandit. In hac habitasse platea dictumst. Maecenas ut nisl velit. Phasellus id nisl euismod, vehicula est a, suscipit nisl. Proin sit amet velit id risus sagittis convallis. Donec in tortor quis eros aliquet aliquet. Vivamus accumsan nisl eu tellus blandit, eget ultrices sapien ultricies. Fusce eget posuere ante, nec vulputate sapien.",
+                release_date = "2021-01-01",
+                poster_path = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9HT9982bzgN5on1sLRmc1GMn6ZC.jpg",
+                backdrop_path = "https://image.tmdb.org/t/p/original/9HT9982bzgN5on1sLRmc1GMn6ZC.jpg"
+            };
 
         public async Task<IEnumerable<Media>> GetSimilarAsync(int id, string type = "movie") =>
-            await GetMediasAsync(
-                $"{TmdbUrls.GetSimilar(id, type)}&api_key={ApiKey}");
+            await Task.FromResult(_fakeMovies);
 
-        private async Task<IEnumerable<Media>> GetMediasAsync(string url)
-        {
-            var trendingMoviesCollection = await HttpClient.GetFromJsonAsync<Movie>($"{url}&api_key={ApiKey}");
-            return trendingMoviesCollection.results
-                    .Select(r => r.ToMediaObject());
-        }
-    }
-    public static class TmdbUrls
-    {
-        public const string Trending = "3/trending/all/week?language=en-US";
-        public const string NetflixOriginals = "3/discover/tv?language=en-US&with_networks=213";
-        public const string TopRated = "3/movie/top_rated?language=en-US";
-        public const string Action = "3/discover/movie?language=en-US&with_genres=28";
-        public const string MovieGenres = "3/genre/movie/list?language=en-US";
-
-        public static string GetTrailers(int movieId, string type = "movie") => $"3/{type ?? "movie"}/{movieId}/videos?language=en-US";
-        public static string GetMovieDetails(int movieId, string type = "movie") => $"3/{type ?? "movie"}/{movieId}?language=en-US";
-        public static string GetSimilar(int movieId, string type = "movie") => $"3/{type ?? "movie"}/{movieId}/similar?language=en-US";
     }
 
     public class Movie
