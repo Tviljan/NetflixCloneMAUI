@@ -14,8 +14,8 @@ public partial class MainPage : ContentPage
 
     protected async override void OnAppearing()
     {
+        await _homeViewModel.InitializeAsync();
         base.OnAppearing();
-		await _homeViewModel.InitializeAsync();
     }
 
 

@@ -113,18 +113,7 @@
                                    Movies="{Binding TopRated}" 
                                    IsLarge="False"
                                    Command="{Binding SelectMediaCommand}"/>
-                <controls:MovieRow Heading="Originals" 
-                                   Movies="{Binding NetflixOriginals}" 
-                                   IsLarge="True"
-                                   Command="{Binding SelectMediaCommand}"/>
-                <controls:MovieRow Heading="Trending" 
-                                   Movies="{Binding Trending}" 
-                                   IsLarge="False"
-                                   Command="{Binding SelectMediaCommand}"/>
-                <controls:MovieRow Heading="Action" 
-                                   Movies="{Binding ActionMovies}" 
-                                   IsLarge="False"
-                                   Command="{Binding SelectMediaCommand}"/>
+    
 
             </VerticalStackLayout>
         </ScrollView>
