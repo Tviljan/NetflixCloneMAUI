@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls.Shapes;
 using NetflixCloneMAUI.Models;
 using CommunityToolkit.Maui.Markup;
+using Microsoft.Maui.Controls;
 
 namespace NetflixCloneMAUI.Controls
 {
@@ -22,11 +23,7 @@ namespace NetflixCloneMAUI.Controls
 
         public static readonly BindableProperty CommandParameterProperty =
             BindableProperty.Create(nameof(CommandParameter), typeof(Object), typeof(MovieRow), default(Object));
-
-        static void OnIsExpandedChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            // Property changed implementation goes here
-        }
+        
         public Object CommandParameter
         {
             get => (Object)GetValue(CommandParameterProperty);
@@ -61,13 +58,13 @@ namespace NetflixCloneMAUI.Controls
 
         public MovieRow()
         {
-            BindingContext = this;
-
-            VerticalStackLayout stackLayout = new VerticalStackLayout
+            MediaDetailsCommand = new Command(ExecuteMediaDetailsCommand);
+            
+            VerticalStackLayout layout = new VerticalStackLayout
             {
-                BackgroundColor = Colors.Black
+                BackgroundColor = Colors.Black,
+                BindingContext = this
             };
-            stackLayout.BindingContext = this;
 
             Label headingLabel = new Label
             {
@@ -76,46 +73,70 @@ namespace NetflixCloneMAUI.Controls
                 HorizontalTextAlignment = TextAlignment.Start,
                 Margin = new Thickness(10, 15, 0, 5)
             };
-            headingLabel.SetBinding(Label.TextProperty, new Binding("Heading"));
 
-            var collectionView = new CollectionView().ItemsSource(Movies);
+            headingLabel.SetBinding(Label.TextProperty, new Binding("Heading"));
+            CollectionView collectionView = new CollectionView();
+
+            collectionView.SetBinding(CollectionView.ItemsSourceProperty, "Movies", BindingMode.TwoWay);
             collectionView.ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Horizontal)
             {
                 ItemSpacing = 5
             };
-
             collectionView.ItemTemplate = new DataTemplate(() =>
             {
-
                 Border border = new Border
                 {
-                    StrokeShape = new RoundRectangle(),
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5
+                    },
                     Stroke = Colors.Red,
                     StrokeThickness = 1
                 };
-                
+
+                TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
+                tapGestureRecognizer.Command = MediaDetailsCommand;
+                tapGestureRecognizer.Bind(TapGestureRecognizer.CommandParameterProperty, ".");
+            
+
+                border.GestureRecognizers.Add(tapGestureRecognizer);
+
                 Grid grid = new Grid();
 
-                Label lbl = new Label()
+                Image smallImage = new Image
                 {
+                    Aspect = Aspect.AspectFill,
                     HeightRequest = 150,
                     WidthRequest = 120
                 };
-                lbl.SetBinding(Label.TextProperty, new Binding("DisplayTitle", source: this));
-              
-                grid.Add(lbl);
+                smallImage.Bind(IsVisibleProperty, "IsNotLarge", source: this);
+                smallImage.Bind(Image.SourceProperty,"ThumbnailSmall");
+
+
+                Image largeImage = new Image
+                {
+                    Aspect = Aspect.AspectFill,
+                    HeightRequest = 200,
+                    WidthRequest = 150
+                };
+                largeImage.Bind(IsVisibleProperty, "IsLarge", source: this);
+                largeImage.Bind(Image.SourceProperty, "ThumbnailSmall");
+
+
+                grid.Add(smallImage);
+                grid.Add(largeImage);
 
                 border.Content = grid;
 
                 return border;
             });
 
-            stackLayout.Add(headingLabel);
-            stackLayout.Add(collectionView);
+            layout.Children.Add(headingLabel);
+            layout.Children.Add(collectionView);
 
-            Content = stackLayout;
-
+            Content = layout;
         }
+
         private void ExecuteMediaDetailsCommand(object parameter)
         {
             CommandParameter = parameter;

@@ -23,17 +23,17 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Media">
                     <Border StrokeShape="RoundRectangle 5"
-                            Stroke="Black"
+                            Stroke="red"
                             StrokeThickness="1">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRow}}, Path=MediaDetailsCommand}"
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRow2}}, Path=MediaDetailsCommand}"
                                                   CommandParameter="{Binding .}"/>
                         </Border.GestureRecognizers>
                         <Grid>
                             <Image Aspect="AspectFill"
                                HeightRequest="150"
                                WidthRequest="120"
-                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRow}}, Path=IsNotLarge}"
+                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRow2}}, Path=IsNotLarge}"
                                >
                                 <Image.Source>
                                     <UriImageSource Uri="{Binding ThumbnailSmall}"/>
@@ -42,7 +42,7 @@
                             <Image Aspect="AspectFill"
                                HeightRequest="200"
                                WidthRequest="150"
-                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRow}}, Path=IsLarge}"
+                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRow2}}, Path=IsLarge}"
                                >
                                 <Image.Source>
                                     <UriImageSource Uri="{Binding ThumbnailSmall}"/>

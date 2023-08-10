@@ -109,16 +109,21 @@
                     
                 </Grid>
 
-                <controls:MovieRow2 Heading="This is MoviewRow2 and works" 
+                <controls:MovieRow2 Heading="Top Rated" 
                                    Movies="{Binding TopRated}" 
                                    IsLarge="False"
+                                   Command="{Binding SelectMediaCommand}"
+                                   CommandParameter="{Binding TrendingMovie}"/>
+                <controls:MovieRow2 Heading="Originals" 
+                                   Movies="{Binding NetflixOriginals}" 
+                                   IsLarge="True"
                                    Command="{Binding SelectMediaCommand}"/>
 
 
-                <controls:MovieRow Heading="This is MoviewRow and wont work" 
+                <controls:MovieRow Heading="C# Markup" 
                                     Movies="{Binding TopRated}" 
                                     IsLarge="False"
-                                    Command="{Binding SelectMediaCommand}"/>
+                                    Command="{Binding SelectMediaCommand}"    />
 
 
 </VerticalStackLayout>

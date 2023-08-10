@@ -29,17 +29,67 @@ namespace NetflixCloneMAUI.Services
             return new List<Genre>();
         }
 
-        public async Task<IEnumerable<Media>> GetTrendingAsync() =>
-            await Task.FromResult(_fakeMovies);
+        public async Task<IEnumerable<Media>> GetTrendingAsync()
+        {
+            var fakes = _fakeMovies.ConvertAll(x => new Media()
+            {
+                Id = x.Id,
+                DisplayTitle = $"Trending {x.Id}",
+                MediaType = x.MediaType,
+                Thumbnail = x.Thumbnail,
+                ThumbnailSmall = x.ThumbnailSmall,
+                ThumbnailUrl = x.ThumbnailUrl,
+                Overview = x.Overview,
+                ReleaseDate = x.ReleaseDate
+            });
+            return await Task.FromResult(fakes);
+        }
+        public async Task<IEnumerable<Media>> GetTopRatedAsync()
+        {
+            var fakes = _fakeMovies.ConvertAll(x => new Media()
+            {
+                Id = x.Id,
+                DisplayTitle = $"Top Rated {x.Id}",
+                MediaType = x.MediaType,
+                Thumbnail = x.Thumbnail,
+                ThumbnailSmall = x.ThumbnailSmall,
+                ThumbnailUrl = x.ThumbnailUrl,
+                Overview = x.Overview,
+                ReleaseDate = x.ReleaseDate
+            });
+            return await Task.FromResult(fakes);
+        }
+        public async Task<IEnumerable<Media>> GetNetflixOriginalAsync()
+        {
+            var fakes = _fakeMovies.ConvertAll(x => new Media()
+            {
+                Id = x.Id,
+                DisplayTitle = $"Original {x.Id}",
+                MediaType = x.MediaType,
+                Thumbnail = x.Thumbnail,
+                ThumbnailSmall = x.ThumbnailSmall,
+                ThumbnailUrl = x.ThumbnailUrl,
+                Overview = x.Overview,
+                ReleaseDate = x.ReleaseDate
+            });
+            return await Task.FromResult(fakes);
+        }
 
-        public async Task<IEnumerable<Media>> GetTopRatedAsync() =>
-            await Task.FromResult(_fakeMovies);
-
-        public async Task<IEnumerable<Media>> GetNetflixOriginalAsync() =>
-            await Task.FromResult(_fakeMovies);
-
-        public async Task<IEnumerable<Media>> GetActionAsync() =>
-            await Task.FromResult(_fakeMovies);
+        public async Task<IEnumerable<Media>> GetActionAsync()
+        {
+            var fakes = _fakeMovies.ConvertAll(x => new Media()
+            {
+                Id = x.Id,
+                DisplayTitle = $"Action {x.Id}",
+                MediaType = x.MediaType,
+                Thumbnail = x.Thumbnail,
+                ThumbnailSmall = x.ThumbnailSmall,
+                ThumbnailUrl = x.ThumbnailUrl,
+                Overview = x.Overview,
+                ReleaseDate = x.ReleaseDate
+            });
+            return await Task.FromResult(fakes);
+        }
 
         public async Task<IEnumerable<Video>?> GetTrailersAsync(int id, string type = "movie")
         {
