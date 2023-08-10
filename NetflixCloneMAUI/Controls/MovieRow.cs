@@ -7,10 +7,10 @@ namespace NetflixCloneMAUI.Controls
 {
     public class MovieRow : ContentView
     {
-        
+
         public static readonly BindableProperty HeadingProperty =
             BindableProperty.Create(nameof(Heading), typeof(string), typeof(MovieRow), string.Empty);
-        
+
         public static readonly BindableProperty MoviesProperty =
             BindableProperty.Create(nameof(Movies), typeof(IEnumerable<Media>), typeof(MovieRow2), Enumerable.Empty<Media>());
 
@@ -62,7 +62,7 @@ namespace NetflixCloneMAUI.Controls
         public MovieRow()
         {
             BindingContext = this;
-     
+
             VerticalStackLayout stackLayout = new VerticalStackLayout
             {
                 BackgroundColor = Colors.Black
@@ -79,7 +79,6 @@ namespace NetflixCloneMAUI.Controls
             headingLabel.SetBinding(Label.TextProperty, new Binding("Heading"));
 
             var collectionView = new CollectionView().ItemsSource(Movies);
-            //collectionView.SetBinding(CollectionView.ItemsSourceProperty, "Movies", BindingMode.TwoWay);
             collectionView.ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Horizontal)
             {
                 ItemSpacing = 5
@@ -87,68 +86,30 @@ namespace NetflixCloneMAUI.Controls
 
             collectionView.ItemTemplate = new DataTemplate(() =>
             {
-                
+
                 Border border = new Border
                 {
                     StrokeShape = new RoundRectangle(),
                     Stroke = Colors.Red,
                     StrokeThickness = 1
                 };
+                
+                Grid grid = new Grid();
 
-                Label lbl = new Label
+                Label lbl = new Label()
                 {
-                    FontAttributes = FontAttributes.Bold,
-                    FontSize = 16,
-                    HorizontalTextAlignment = TextAlignment.Start,
-                    Margin = new Thickness(10, 15, 0, 5)
+                    HeightRequest = 150,
+                    WidthRequest = 120
                 };
-                lbl.Bind(Label.TextProperty, Binding.SelfPath);
-                border.Content = lbl;
+                lbl.SetBinding(Label.TextProperty, new Binding("DisplayTitle", source: this));
+              
+                grid.Add(lbl);
+
+                border.Content = grid;
+
                 return border;
             });
 
-            /*
-            TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
-            tapGestureRecognizer.SetBinding(TapGestureRecognizer.CommandProperty,
-                new Binding("MediaDetailsCommand", source: this));
-            tapGestureRecognizer.SetBinding(TapGestureRecognizer.CommandParameterProperty, ".");
-
-            border.GestureRecognizers.Add(tapGestureRecognizer);
-
-            Grid grid = new Grid();
-
-            Image smallImage = new Image
-            {
-                Aspect = Aspect.AspectFill,
-                HeightRequest = 150,
-                WidthRequest = 120
-            };
-            smallImage.SetBinding(IsVisibleProperty, new Binding("IsNotLarge", source: this));
-            smallImage.Source = new UriImageSource
-            {
-                Uri = new Uri("ThumbnailSmall")
-            };
-
-            Image largeImage = new Image
-            {
-                Aspect = Aspect.AspectFill,
-                HeightRequest = 200,
-                WidthRequest = 150
-            };
-            largeImage.SetBinding(IsVisibleProperty, new Binding("IsLarge", source: this));
-            largeImage.Source = new UriImageSource
-            {
-                Uri = new Uri("ThumbnailSmall")
-            };
-
-            grid.Add(smallImage);
-            grid.Add(largeImage);
-
-            border.Content = grid;
-
-            return border;
-        });
-        */
             stackLayout.Add(headingLabel);
             stackLayout.Add(collectionView);
 
