@@ -122,7 +122,7 @@
 
                 <controls:MovieRow Heading="C# Markup" 
                                     Movies="{Binding TopRated}" 
-                                    IsLarge="False"
+                                    IsLarge="True"
                                     Command="{Binding SelectMediaCommand}"    />
 
 

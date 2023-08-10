@@ -103,29 +103,35 @@ namespace NetflixCloneMAUI.Controls
 
                 Grid grid = new Grid();
 
-                Image smallImage = new Image
+                //Instead of binding IsLarge or IsNotLarge (largeImage.Bind(IsVisibleProperty, "IsLarge", source: this);) we can just check if IsLarge
+                if (IsLarge)
                 {
-                    Aspect = Aspect.AspectFill,
-                    HeightRequest = 150,
-                    WidthRequest = 120
-                };
-                smallImage.Bind(IsVisibleProperty, "IsNotLarge", source: this);
-                smallImage.Bind(Image.SourceProperty,"ThumbnailSmall");
-
-
-                Image largeImage = new Image
+                    Image largeImage = new Image
+                    {
+                        Aspect = Aspect.AspectFill,
+                        HeightRequest = 200,
+                        WidthRequest = 150
+                    };
+                    //largeImage.Bind(IsVisibleProperty, "IsLarge", source: this);
+                    largeImage.Bind(Image.SourceProperty, "ThumbnailSmall");
+                    grid.Add(largeImage);
+            
+                }
+                else
                 {
-                    Aspect = Aspect.AspectFill,
-                    HeightRequest = 200,
-                    WidthRequest = 150
-                };
-                largeImage.Bind(IsVisibleProperty, "IsLarge", source: this);
-                largeImage.Bind(Image.SourceProperty, "ThumbnailSmall");
 
+                    Image smallImage = new Image
+                    {
+                        Aspect = Aspect.AspectFill,
+                        HeightRequest = 150,
+                        WidthRequest = 120
+                    };
+                    //smallImage.Bind(IsVisibleProperty, "IsNotLarge", source: this);
+                    smallImage.Bind(Image.SourceProperty, "ThumbnailSmall");
 
-                grid.Add(smallImage);
-                grid.Add(largeImage);
-
+                    grid.Add(smallImage);
+                }
+              
                 border.Content = grid;
 
                 return border;
