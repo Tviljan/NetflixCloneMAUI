@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Microsoft.Maui.Controls.Shapes;
 using NetflixCloneMAUI.Models;
 using CommunityToolkit.Maui.Markup;
 
 namespace NetflixCloneMAUI.Controls
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public class MovieRow : ContentView
     {
         
-
         public static readonly BindableProperty HeadingProperty =
             BindableProperty.Create(nameof(Heading), typeof(string), typeof(MovieRow), string.Empty);
-
+        
         public static readonly BindableProperty MoviesProperty =
-            BindableProperty.Create(nameof(Movies), typeof(IEnumerable<Media>), typeof(MovieRow), Enumerable.Empty<Media>(),propertyChanged: OnIsExpandedChanged);
+            BindableProperty.Create(nameof(Movies), typeof(IEnumerable<Media>), typeof(MovieRow2), Enumerable.Empty<Media>());
 
         public static readonly BindableProperty IsLargeProperty =
             BindableProperty.Create(nameof(IsLarge), typeof(bool), typeof(MovieRow), false);
@@ -68,11 +62,7 @@ namespace NetflixCloneMAUI.Controls
         public MovieRow()
         {
             BindingContext = this;
-            InitializeComponent();
-        }
-
-        private void InitializeComponent()
-        {
+     
             VerticalStackLayout stackLayout = new VerticalStackLayout
             {
                 BackgroundColor = Colors.Black
@@ -163,6 +153,7 @@ namespace NetflixCloneMAUI.Controls
             stackLayout.Add(collectionView);
 
             Content = stackLayout;
+
         }
         private void ExecuteMediaDetailsCommand(object parameter)
         {

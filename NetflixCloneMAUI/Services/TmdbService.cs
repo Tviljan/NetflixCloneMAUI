@@ -1,15 +1,10 @@
 ﻿using NetflixCloneMAUI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetflixCloneMAUI.Services
 {
     public class TmdbService
     {
+        
         private static List<Media> _fakeMovies = Enumerable.Range(1, 10).Select(i => new Media
         {
             DisplayTitle = $"Fake Movie {i}",

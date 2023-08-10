@@ -52,7 +52,7 @@ namespace NetflixCloneMAUI.ViewModels
                                     && !string.IsNullOrWhiteSpace(t.Thumbnail));
 
             SetMediaCollection(topRatedList, TopRated);
-
+            OnPropertyChanged(nameof(TopRated));
             //SetMediaCollection(trendingList, Trending);
             //SetMediaCollection(netflixOriginalsList, NetflixOriginals);
             //SetMediaCollection(actionList, ActionMovies);

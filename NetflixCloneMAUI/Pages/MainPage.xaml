@@ -109,13 +109,19 @@
                     
                 </Grid>
 
-                <controls:MovieRow Heading="Top Rated" 
+                <controls:MovieRow2 Heading="This is MoviewRow2 and works" 
                                    Movies="{Binding TopRated}" 
                                    IsLarge="False"
                                    Command="{Binding SelectMediaCommand}"/>
-    
 
-            </VerticalStackLayout>
+
+                <controls:MovieRow Heading="This is MoviewRow and wont work" 
+                                    Movies="{Binding TopRated}" 
+                                    IsLarge="False"
+                                    Command="{Binding SelectMediaCommand}"/>
+
+
+</VerticalStackLayout>
         </ScrollView>
         <Grid HeightRequest="35"
               VerticalOptions="Start">
