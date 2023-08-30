@@ -81,8 +81,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Controls\MovieRow2.xaml.cs">
-	    <DependentUpon>MovieRow2.xaml</DependentUpon>
+	  <Compile Update="Controls\MovieRowXAML.xaml.cs">
+	    <DependentUpon>MovieRowXAML.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -90,7 +90,7 @@
 	  <MauiXaml Update="Controls\MovieInfoBox.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\MovieRow2.xaml">
+	  <MauiXaml Update="Controls\MovieRowXAML.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\CategoriesPage.xaml">

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:NetflixCloneMAUI.Models"
              xmlns:controls="clr-namespace:NetflixCloneMAUI.Controls"
-             x:Class="NetflixCloneMAUI.Controls.MovieRow2"
+             x:Class="NetflixCloneMAUI.Controls.MovieRowXaml"
              x:Name="this"
              >
     <VerticalStackLayout BackgroundColor="Black"
@@ -26,14 +26,14 @@
                             Stroke="red"
                             StrokeThickness="1">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRow2}}, Path=MediaDetailsCommand}"
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRowXaml}}, Path=MediaDetailsCommand}"
                                                   CommandParameter="{Binding .}"/>
                         </Border.GestureRecognizers>
                         <Grid>
                             <Image Aspect="AspectFill"
                                HeightRequest="150"
                                WidthRequest="120"
-                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRow2}}, Path=IsNotLarge}"
+                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRowXaml}}, Path=IsNotLarge}"
                                >
                                 <Image.Source>
                                     <UriImageSource Uri="{Binding ThumbnailSmall}"/>
@@ -42,7 +42,7 @@
                             <Image Aspect="AspectFill"
                                HeightRequest="200"
                                WidthRequest="150"
-                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRow2}}, Path=IsLarge}"
+                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type controls:MovieRowXaml}}, Path=IsLarge}"
                                >
                                 <Image.Source>
                                     <UriImageSource Uri="{Binding ThumbnailSmall}"/>

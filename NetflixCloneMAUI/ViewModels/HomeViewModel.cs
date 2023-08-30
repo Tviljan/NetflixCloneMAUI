@@ -13,7 +13,7 @@ namespace NetflixCloneMAUI.ViewModels
         {
             _tmdbService = tmdbService;
         }
-
+      
         [ObservableProperty]
         private Media _trendingMovie;
 

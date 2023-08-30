@@ -6,23 +6,23 @@ using Microsoft.Maui.Controls;
 
 namespace NetflixCloneMAUI.Controls
 {
-    public class MovieRow : ContentView
+    public class MovieRowCS : ContentView
     {
 
         public static readonly BindableProperty HeadingProperty =
-            BindableProperty.Create(nameof(Heading), typeof(string), typeof(MovieRow), string.Empty);
+            BindableProperty.Create(nameof(Heading), typeof(string), typeof(MovieRowCS), string.Empty);
 
         public static readonly BindableProperty MoviesProperty =
-            BindableProperty.Create(nameof(Movies), typeof(IEnumerable<Media>), typeof(MovieRow2), Enumerable.Empty<Media>());
+            BindableProperty.Create(nameof(Movies), typeof(IEnumerable<Media>), typeof(MovieRowCS), Enumerable.Empty<Media>());
 
         public static readonly BindableProperty IsLargeProperty =
-            BindableProperty.Create(nameof(IsLarge), typeof(bool), typeof(MovieRow), false);
+            BindableProperty.Create(nameof(IsLarge), typeof(bool), typeof(MovieRowCS), false);
 
         public static readonly BindableProperty CommandProperty =
-            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MovieRow), default(ICommand));
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MovieRowCS), default(ICommand));
 
         public static readonly BindableProperty CommandParameterProperty =
-            BindableProperty.Create(nameof(CommandParameter), typeof(Object), typeof(MovieRow), default(Object));
+            BindableProperty.Create(nameof(CommandParameter), typeof(Object), typeof(MovieRowCS), default(Object));
         
         public Object CommandParameter
         {
@@ -37,26 +37,26 @@ namespace NetflixCloneMAUI.Controls
 
         public string Heading
         {
-            get => (string)GetValue(MovieRow.HeadingProperty);
-            set => SetValue(MovieRow.HeadingProperty, value);
+            get => (string)GetValue(MovieRowCS.HeadingProperty);
+            set => SetValue(MovieRowCS.HeadingProperty, value);
         }
         public IEnumerable<Media> Movies
         {
-            get => (IEnumerable<Media>)GetValue(MovieRow.MoviesProperty);
-            set => SetValue(MovieRow.MoviesProperty, value);
+            get => (IEnumerable<Media>)GetValue(MovieRowCS.MoviesProperty);
+            set => SetValue(MovieRowCS.MoviesProperty, value);
         }
 
         public bool IsLarge
         {
-            get => (bool)GetValue(MovieRow.IsLargeProperty);
-            set => SetValue(MovieRow.IsLargeProperty, value);
+            get => (bool)GetValue(MovieRowCS.IsLargeProperty);
+            set => SetValue(MovieRowCS.IsLargeProperty, value);
         }
 
         public bool IsNotLarge => !IsLarge;
 
         public ICommand MediaDetailsCommand { get; private set; }
 
-        public MovieRow()
+        public MovieRowCS()
         {
             MediaDetailsCommand = new Command(ExecuteMediaDetailsCommand);
             

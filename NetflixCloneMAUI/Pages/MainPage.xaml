@@ -109,21 +109,21 @@
                     
                 </Grid>
 
-                <controls:MovieRow2 Heading="Top Rated" 
+                <controls:MovieRowXaml Heading="Top Rated" 
                                    Movies="{Binding TopRated}" 
                                    IsLarge="False"
                                    Command="{Binding SelectMediaCommand}"
                                    CommandParameter="{Binding TrendingMovie}"/>
-                <controls:MovieRow2 Heading="Originals" 
+                <controls:MovieRowXaml Heading="Originals" 
                                    Movies="{Binding NetflixOriginals}" 
                                    IsLarge="True"
                                    Command="{Binding SelectMediaCommand}"/>
 
 
-                <controls:MovieRow Heading="C# Markup" 
-                                    Movies="{Binding TopRated}" 
-                                    IsLarge="True"
-                                    Command="{Binding SelectMediaCommand}"    />
+                <controls:MovieRowCS Heading="C# Markup" 
+                                     Movies="{Binding TopRated}" 
+                                     IsLarge="True"
+                                     Command="{Binding SelectMediaCommand}"    />
 
 
 </VerticalStackLayout>
