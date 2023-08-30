@@ -1,3 +1,7 @@
+Forked from Abhayprinces [NetflixCloneMAUI repository](https://github.com/Abhayprince/NetflixCloneMAUI)
+* Testing switching from XAML to C# markup etc
+* Removed the tmdb service and replaced with some random media. Ugly but no API key required
+
 # NetflixCloneMAUI - A Netflix Clone App using .NET MAUI
 
 > A Netflix Clone Mobile App using .NET MAUI (XAML) with TMDB API integration - .Net 7
